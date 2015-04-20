@@ -2,20 +2,21 @@
 My take at observable, cancelable asynchronous operations…
 
 
-## Motivation
+## Motivation and Quality Attributes
 
 I'm trying to find a good asynchronous task library for tasks that supports:
 
-- Promises. Who wants to mess with callback nowadays?
-- Progress. I want to be able to be notified of progress.
-- Nesting. Some tasks are composed of sub-tasks.
-- Cancellation. What if I don't want the result anymore?
+- __Promises.__ Who wants to mess with callback nowadays?
+- __Progress.__ I want to be able to be notified of progress.
+- __Nesting.__ Some tasks are composed of sub-tasks.
+- __Cancellation.__ What if I don't want the result anymore?
 
 Nongoals: I don't care about
 
-- Chaining.
+- __Chaining.__ Tasks don't need to be chainable.
 
-I came across whatwg/fetch#27 and that discussion is too long. Basically, I don't want to to extend Promises with cancellations.
+I came across whatwg/fetch#27, but that discussion is too long.
+Basically, I don't want to to extend Promises with cancellations.
 
 
 ## What I am thinking...
@@ -28,7 +29,7 @@ function createTask() {
     return new Promise(function(resolve, reject) {
       var timeout = setTimeout(resolve, 2000)
       job.oncancel = function(reason) {
-        // I lost my job, my work is worthless.
+        // I lost my job, so my work is worthless now.
         clearTimeout(timeout)
       }
     })
@@ -48,10 +49,10 @@ function createTask() {
 }
 ```
 
-You can only delegate one at a time.
+You can not delegate concurrently but can delegate multiple sub-tasks at the same time (but have to be done at once).
 
 
-### Manual Check:
+### Manual Checking:
 
 ```js
 function createTask() {
