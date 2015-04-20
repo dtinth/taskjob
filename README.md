@@ -15,6 +15,7 @@ I'm trying to find a good asynchronous task library for tasks that supports:
 Nongoals: I don't care about
 
 - __Chaining.__ Tasks don't need to be chainable.
+- __Uncancellation.__ If a task is canceled, then it is indeed canceled!
 
 I came across whatwg/fetch#27, but that discussion is too long.
 Basically, I don't want to to extend Promises with cancellations.
