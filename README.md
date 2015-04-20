@@ -1,4 +1,5 @@
-# taskjob
+# new Task :: ((Job) -> Promise) -> Task
+
 My take at observable, cancelable asynchronous operations…
 
 
